@@ -6,6 +6,17 @@ const props = defineProps(['points'])
 const _pointAmount = computed(() => {
     return props.points ? parseInt(props.points).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0
 })
+
+const _showUserInfo = () => {
+    if (window.tgUser) {
+        const _userInfo = `id: ${window.tgUser.id}
+is bot: ${(window.tgUser.is_bot)?'true':'false'}
+first name: ${window.tgUser.first_name}
+last name: ${window.tgUser.last_name}
+username: ${window.tgUser.username || 'undefined'}`;
+        alert(_userInfo);
+    }
+}
 </script>
 
 <template>
@@ -16,7 +27,7 @@ const _pointAmount = computed(() => {
         <div class="user-level"><span>Gold</span></div>
     </div>
     <div class="squad-wrap wrapper">
-        <button type="button">Join<br/>Squad</button>
+        <button type="button" @click="_showUserInfo">Join<br/>Squad</button>
     </div>
 </div>
 </template>
