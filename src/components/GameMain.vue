@@ -11,6 +11,7 @@ const _game = reactive(Game)
 const _addLimitIntv = setInterval(() => {
     _game.addLimit();
 }, _game.getAddLimitSeconds());
+const _isClick = ref(false);
 
 onMounted(() => {
     _game.point.amount = 15070
@@ -18,17 +19,17 @@ onMounted(() => {
 })
 
 const _increasePoint = (e) => {
-    _game.addPoint(1);
-    const el = h('span', { class: 'plus-point-mark', innerHTML:'+1'});
-    return el;
+    _isClick.value = true;
+    setTimeout(()=>{ _isClick.value = false; }, 300);
 
+    _game.addPoint(1);
 }
 </script>
 
 <template>
 <div class="main-container">
     <MainTop :points="_game.point.amount" />
-    <MainGame @click="_increasePoint" />
+    <MainGame @click="_increasePoint" :isClick="_isClick" />
     <MainBottom :maxLimits="_game.getMaxLimit()" :limits="_game.point.limit" />
 </div>
 </template>
@@ -45,15 +46,4 @@ const _increasePoint = (e) => {
     background-image: url('/images/main_bg.gif');
     background-position: center;
 }
-
-.plus-point {
-    display:inline-block;
-    position:absolute;
-    top:0; left:0;
-    z-index: 99999;
-    font-size:1.5rem;
-    font-weight:bold;
-    color:#fff;
-}
-
 </style>

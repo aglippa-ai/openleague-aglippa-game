@@ -1,13 +1,27 @@
+<script setup>
+const props = defineProps(['isClick'])
+</script>
+
 <template>
 <div class="main-game-container">
-    <h3>game</h3>
+    <img src="/images/img_aglippa_touch.png" class="aglippa-plate" width="100%" v-if="props.isClick"/>
+    <img src="/images/img_aglippa.png" class="aglippa-plate" width="100%" v-if="!props.isClick"/>
 </div>
 </template>
 
 <style scoped>
 .main-game-container {
-    height: 70%;
-    background-color: rgba(255,255,255,0.5);
-    padding: 0 1rem;
+    flex: 1;
+    padding: 0;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow:hidden;
+}
+
+.aglippa-plate {
+    width: 100%;
 }
 </style>
