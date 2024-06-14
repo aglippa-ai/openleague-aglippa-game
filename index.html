@@ -6,8 +6,8 @@
 <title>Aglippa Meme Game</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script type="text/javascript">
-window.tgUser = window.Telegram.WebApp.initDataUnsafe.user;
-if (window.tgUser) {
+if (window.Telegram.WebApp.initDataUnsafe.user) {
+    window.tgUser = window.Telegram.WebApp.initDataUnsafe.user;
     window.Telegram.WebApp.setHeaderColor('#111122');
     window.Telegram.WebApp.expand();
     window.Telegram.WebApp.enableClosingConfirmation();

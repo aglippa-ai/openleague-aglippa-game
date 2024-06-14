@@ -1,13 +1,13 @@
 <script setup>
 import { computed } from 'vue'
 
+import UserPoint from './MainTop/UserPoint.vue'
+import UserRank from './MainTop/UserRank.vue'
+import UserLevel from './MainTop/UserLevel.vue'
+
 const props = defineProps(['points'])
 
-const _pointAmount = computed(() => {
-    return props.points ? parseInt(props.points).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0
-})
-
-const _showUserInfo = () => {
+const _showJoinSquad = () => {
     if (window.tgUser) {
         const _userInfo = `id: ${window.tgUser.id}
 is bot: ${(window.tgUser.is_bot)?'true':'false'}
@@ -22,12 +22,14 @@ username: ${window.tgUser.username || 'undefined'}`;
 <template>
 <div class="main-top-container">
     <div class="rank-wrap wrapper">
-        <div class="user-point"><span v-text="_pointAmount"></span></div>
-        <div class="user-rank"><span>56</span></div>
-        <div class="user-level"><span>Gold</span></div>
+        <UserPoint :userPoint="props.points" />
+        <div class="rank-row">
+            <UserRank :userRank="123456" />
+            <UserLevel :userLevel="'Platinum'" />
+        </div>
     </div>
     <div class="squad-wrap wrapper">
-        <button type="button" @click="_showUserInfo">Join<br/>Squad</button>
+        <input type="button" class="btn-join-squad" @click="_showJoinSquad" />
     </div>
 </div>
 </template>
@@ -38,32 +40,41 @@ username: ${window.tgUser.username || 'undefined'}`;
     flex-direction: row;
     height: 15%;
     width: 100%;
+
+    background-image:url('/images/main_top_bg.png');
+    background-size: contain;
+    background-position: center;
 }
 
 .rank-wrap {
     width:60%;
-    border:1px solid #F00;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    
+    justify-content: center;
+}
+
+.rank-row {
+    display: flex;
     flex-direction: row;
 }
 
 .squad-wrap {
     width:40%;
-    border:1px solid #0f0;
-    padding: .5rem .5rem;
+    padding: .5rem;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.squad-wrap button {
+.btn-join-squad {
+    background: url('/images/btn_joinsquad.png') no-repeat;
+    background-size: contain;
+    background-position: center;
     width:100%;
     height:100%;
-    font-size:1.3rem;
-    font-weight:bold;
-    background-color:#ababab;
-    border-bottom:2px solid #666;
-    border-right:2px solid #666;
-    border-top:2px solid #ccc;
-    border-left:2px solid #ccc;
+    border:none;
 }
 
 .wrapper {
@@ -71,18 +82,4 @@ username: ${window.tgUser.username || 'undefined'}`;
     flex-basis: auto;
 }
 
-.user-point {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    width:100%;
-}
-
-.user-rank,
-.user-level {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    width:50%;
-}
 </style>

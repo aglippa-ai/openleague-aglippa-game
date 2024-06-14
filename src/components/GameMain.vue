@@ -18,10 +18,8 @@ onMounted(() => {
 })
 
 const _increasePoint = (e) => {
-    console.log('event:', e.clientX, e.clientY);
     _game.addPoint(1);
     const el = h('span', { class: 'plus-point-mark', innerHTML:'+1'});
-    console.log('mark:', el);
     return el;
 
 }
