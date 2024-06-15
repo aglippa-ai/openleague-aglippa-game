@@ -5,7 +5,7 @@ import UserPoint from './MainTop/UserPoint.vue'
 import UserRank from './MainTop/UserRank.vue'
 import UserLevel from './MainTop/UserLevel.vue'
 
-const props = defineProps(['points'])
+const props = defineProps(['points' ,'rank', 'level'])
 
 const _showJoinSquad = () => {
     if (window.tgUser) {
@@ -24,8 +24,8 @@ username: ${window.tgUser.username || 'undefined'}`;
     <div class="rank-wrap wrapper">
         <UserPoint :userPoint="props.points" />
         <div class="rank-row">
-            <UserRank :userRank="123456" />
-            <UserLevel :userLevel="'Platinum'" />
+            <UserRank :userRank="props.rank" />
+            <UserLevel :userLevel="props.level" />
         </div>
     </div>
     <div class="squad-wrap wrapper">

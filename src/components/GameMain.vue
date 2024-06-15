@@ -16,8 +16,11 @@ const _isClick = ref(false);
 
 onMounted(async () => {
     const _tgid = (window.tgUser) ? window.tgUser.id : '123456';
-    const _res = await User.get(_tgid);
-    const _user = _res.user;
+    //const _res = await User.get(_tgid);
+    //const _user = _res.user;
+    const _user = {
+        points: 0
+    };
 
     _game.point.amount = _user.points || 0;
     _game.point.limit  = _game.getMaxLimit();
@@ -37,7 +40,7 @@ const _increasePoint = async (e) => {
 
 <template>
 <div class="main-container">
-    <MainTop :points="_game.point.amount" />
+    <MainTop :points="_game.point.amount" :rank="'0'" :level="'Bronze'" />
     <MainGame @click="_increasePoint" :isClick="_isClick" />
     <MainBottom :maxLimits="_game.getMaxLimit()" :limits="_game.point.limit" />
 </div>
