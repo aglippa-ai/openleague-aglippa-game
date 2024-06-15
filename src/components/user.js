@@ -1,22 +1,27 @@
+import axios from 'axios'
+const API_HOST = "http://localhost:3010"
+
 const user = {
-    
-    telegram: {
-        id: 0,
-        first_name: '',
-        last_name: ''
+
+    get: async (tgid) => {
+        const _res = await axios({
+            url: `${API_HOST}/user/${tgid}`,
+            method: 'GET'
+        })
+
+        return _res.data;
     },
 
-    game: {
-        rank: 0,
-        level: 'bronze',
-        points: amount,
-    },
-
-    squad: {
-        id: null
-    },
-
-    event: {
-        history: [] 
+    updatePoints: async ({ tgid, points }) => {
+        console.log(tgid, points);
+        const _res = await axios({
+            url: `${API_HOST}/user/${tgid}/points`,
+            method: 'POST',
+            data: {
+                points: parseInt(points)
+            }
+        })
     }
 }
+
+export default user;

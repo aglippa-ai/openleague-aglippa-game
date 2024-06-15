@@ -2,6 +2,7 @@
 import { ref, reactive, onMounted, h } from 'vue'
 
 import Game from './game'
+import User from './user'
 
 import MainTop from './MainTop.vue'
 import MainGame from './MainGame.vue'
@@ -13,16 +14,24 @@ const _addLimitIntv = setInterval(() => {
 }, _game.getAddLimitSeconds());
 const _isClick = ref(false);
 
-onMounted(() => {
-    _game.point.amount = 15070
+onMounted(async () => {
+    const _tgid = (window.tgUser) ? window.tgUser.id : '123456';
+    const _res = await User.get(_tgid);
+    const _user = _res.user;
+
+    _game.point.amount = _user.points || 0;
     _game.point.limit  = _game.getMaxLimit();
 })
 
-const _increasePoint = (e) => {
+const _increasePoint = async (e) => {
     _isClick.value = true;
     setTimeout(()=>{ _isClick.value = false; }, 300);
 
     _game.addPoint(1);
+
+    const _tgid = (window.tgUser) ? window.tgUser.id : '123456';
+    const _res = await User.updatePoints({ tgid:_tgid, points:_game.point.amount });
+    console.log(_res);
 }
 </script>
 
